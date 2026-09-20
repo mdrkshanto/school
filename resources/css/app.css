@@ -1,0 +1,164 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme inline {
+    --font-sans:
+        Instrument Sans, ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+}
+
+::selection {
+    background-color: #c7d2fe;
+    color: #312e81;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+table {
+    text-align: left;
+}
+
+/* ---------- Mobile app shell (bottom nav) ---------- */
+@layer base {
+    html {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* ---------- Mobile table -> stacked app cards ---------- */
+@media (max-width: 1023px) {
+    .table-card,
+    .table-card tbody,
+    .table-card tr,
+    .table-card td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-card thead {
+        display: none;
+    }
+
+    .table-card tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .table-card tbody tr {
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        background: #fff;
+        padding: 6px 16px;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+    }
+
+    .table-card tbody td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px 0 !important;
+        white-space: normal !important;
+        border-top: 1px solid #f1f5f9;
+        font-size: 14px;
+        color: #334155;
+        text-align: right;
+    }
+
+    .table-card tbody tr > td:first-child {
+        border-top: 0;
+        font-weight: 600;
+        color: #0f172a;
+    }
+
+    .table-card tbody td::before {
+        content: attr(data-label);
+        min-width: 0;
+        flex-shrink: 0;
+        max-width: 45%;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #94a3b8;
+        text-align: left;
+    }
+
+    .table-card tbody td:first-child::before {
+        display: none;
+    }
+
+    /* last cell without a label (action column) becomes the card footer */
+    .table-card tbody td[data-label=''] {
+        justify-content: flex-start;
+        border-top: 1px solid #f1f5f9;
+        padding-top: 12px !important;
+    }
+
+    .table-card tbody td[data-label=''] > div {
+        display: flex;
+        gap: 8px;
+    }
+
+    .table-card tbody button,
+    .table-card tbody a {
+        min-height: 40px;
+    }
+
+    .dark .table-card tbody tr {
+        border-color: #1e293b;
+        background: #0f172a;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+
+    .dark .table-card tbody td {
+        border-top-color: #1e293b;
+        color: #cbd5e1;
+    }
+
+    .dark .table-card tbody tr > td:first-child {
+        color: #f8fafc;
+    }
+
+    .dark .table-card tbody td[data-label=''] {
+        border-top-color: #1e293b;
+    }
+}
+
+/* ---------- Mobile horizontal-scroll filter chip rows ----------
+   Applied to the common filter bar pattern used on index pages:
+   search input leads, then selects shrink into scrollable chips. */
+@media (max-width: 1023px) {
+    main .mb-4.flex.flex-wrap.items-center.gap-3 {
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    main .mb-4.flex.flex-wrap.items-center.gap-3::-webkit-scrollbar {
+        display: none;
+    }
+
+    main .mb-4.flex.flex-wrap.items-center.gap-3 > * {
+        flex-shrink: 0;
+    }
+
+    main .mb-4.flex.flex-wrap.items-center.gap-3 > :not(:first-child) {
+        width: auto;
+        min-width: 170px;
+    }
+}
